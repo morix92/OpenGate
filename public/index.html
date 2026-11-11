@@ -1,0 +1,403 @@
+
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#f3f5f9">
+
+    <title>Controllo Cancello</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+            background:
+                radial-gradient(circle at 50% 35%, #ffffff 0%, transparent 55%),
+                linear-gradient(145deg, #eef2f7, #e4eaf2);
+
+            color: #273449;
+
+            min-height: 100vh;
+            min-height: 100dvh;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* CONTENUTO PRINCIPALE */
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 20px;
+        }
+
+        .container {
+            width: 75%;
+            max-width: 420px;
+            text-align: center;
+
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 28px;
+
+            padding: 40px 25px;
+
+            box-shadow:
+                0 15px 45px rgba(35, 52, 75, 0.08);
+        }
+
+        .gateIcon {
+            filter: brightness(0);
+            width: 100px;
+            height: auto;
+        }
+
+        .icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        h1 {
+            font-size: 1.65rem;
+            font-weight: 750;
+            color: #26374d;
+            margin: 0 0 10px;
+        }
+
+        /* PULSANTE CANCELLO */
+
+        .btn-gate {
+            width: 190px;
+            height: 190px;
+
+            border: none;
+            border-radius: 50%;
+
+            background: linear-gradient(
+                145deg,
+                #35cf7b,
+                #20a95e
+            );
+
+            color: white;
+
+            font-size: 1.45rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+
+            cursor: pointer;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto;
+
+            box-shadow:
+                0 12px 25px rgba(32, 169, 94, 0.28),
+                inset 0 3px 5px rgba(255, 255, 255, 0.25);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .btn-gate:hover:not(:disabled) {
+            transform: translateY(-4px);
+
+            box-shadow:
+                0 18px 35px rgba(32, 169, 94, 0.35),
+                inset 0 3px 5px rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-gate:active:not(:disabled) {
+            transform: scale(0.94);
+        }
+
+        .btn-gate:disabled {
+            cursor: wait;
+            opacity: 0.55;
+        }
+
+        .btn-gate:focus-visible {
+            outline: 4px solid rgba(32, 169, 94, 0.3);
+            outline-offset: 6px;
+        }
+
+        /* STATO */
+
+        #status {
+            margin-top: 30px;
+
+            min-height: 45px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 0.9rem;
+            font-weight: 600;
+
+            color: #7c899a;
+
+            transition: color 0.2s ease;
+        }
+
+        #status.success {
+            color: #20a95e;
+        }
+
+        #status.error {
+            color: #dc4545;
+        }
+
+        #status.loading {
+            color: #d38b25;
+        }
+
+        /* FOOTER */
+
+        .app-footer {
+            display: flex;
+            align-items: center;
+
+            min-height: 100px;
+
+            background-color: #1e1e1e;
+            color: white;
+
+            padding: 12px 5%;
+
+            font-size: 12px;
+            gap: 5%;
+
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+
+            flex: 0 0 25%;
+            gap: 15px;
+
+            min-width: 0;
+        }
+
+        .logo {
+            width: 75px;
+            height: 60px;
+
+            border-radius: 12px;
+            object-fit: contain;
+
+            flex-shrink: 0;
+        }
+
+        .footer-brand h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        /* TABLET */
+
+        @media (min-width: 576px) and (max-width: 999px) {
+
+            .app-footer {
+                padding: 12px 3%;
+                gap: 3%;
+                font-size: 10px;
+            }
+
+            .footer-brand {
+                flex-basis: 25%;
+                gap: 12px;
+            }
+
+            .logo {
+                width: 60px;
+                height: 45px;
+            }
+
+            .footer-brand h2 {
+                font-size: 12px;
+            }
+        }
+
+        /* SMARTPHONE */
+
+        @media (max-width: 575px) {
+
+            .main-content {
+                padding: 20px 16px;
+            }
+
+            .container {
+                padding: 35px 20px;
+                border-radius: 24px;
+            }
+
+            h1 {
+                font-size: 1.45rem;
+            }
+
+            .btn-gate {
+                width: 170px;
+                height: 170px;
+                font-size: 1.3rem;
+            }
+
+            .app-footer {
+                min-height: 85px;
+                padding: 12px 20px;
+                justify-content: center;
+            }
+
+            .footer-brand {
+                flex: 0 1 auto;
+                gap: 12px;
+            }
+
+            .logo {
+                width: 55px;
+                height: 45px;
+            }
+
+            .footer-brand h2 {
+                font-size: 13px;
+            }
+        }
+
+        /* SCHERMI BASSI */
+
+        @media (max-height: 600px) {
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .icon {
+                font-size: 30px;
+                margin-bottom: 5px;
+            }
+
+            h1 {
+                font-size: 1.3rem;
+            }
+
+            .btn-gate {
+                width: 135px;
+                height: 135px;
+            }
+
+            #status {
+                margin-top: 15px;
+                min-height: 30px;
+            }
+
+            .app-footer {
+                min-height: 75px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <main class="main-content">
+
+        <div class="container">
+
+            <div class="icon"><img class="gateIcon" src="iconaCancello.png" alt="Icona Cancello"></div>
+			
+            <h1>Apri Cancello</h1>
+            <button class="btn-gate" id="openBtn" onclick="apriCancello()" aria-label="Apri cancello">APRI</button>
+			<div id="status"></div>
+			
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+
+    <footer class="app-footer">
+
+        <div class="footer-brand">
+
+            <img
+                src="AMlogo.png"
+                alt="AM Developments Logo"
+                class="logo"
+            >
+
+            <h2>© 2026 AM Developments</h2>
+
+        </div>
+
+    </footer>
+	
+	<script>
+        async function apriCancello() {
+            const btn = document.getElementById('openBtn');
+            const statusDiv = document.getElementById('status');
+            
+            btn.disabled = true;
+            btn.style.opacity = '0.6';
+            statusDiv.style.color = '#e67e22';
+            statusDiv.innerText = 'Invio comando in corso...';
+
+            try {
+                const response = await fetch('/api/apri');
+                const data = await response.json();
+
+                if (data.success) {
+                    statusDiv.style.color = '#27ae60';
+                    statusDiv.innerText = '✅ Cancello aperto!';
+                } else {
+                    statusDiv.style.color = '#c0392b';
+                    statusDiv.innerText = '❌ Errore di comando.';
+                }
+            } catch (err) {
+                statusDiv.style.color = '#c0392b';
+                statusDiv.innerText = '❌ Errore di connessione al server.';
+            }
+
+            setTimeout(() => {
+                btn.disabled = false;
+                btn.style.opacity = '1';
+                statusDiv.innerText = '';
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
