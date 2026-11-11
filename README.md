@@ -7,7 +7,14 @@ Progettata per essere ospitata su un server domestico sempre acceso, l'app si in
 Lo scopo è quello realizzare un'applicazione fruibile da tutti i dispositivi (smartphone, tablet, pc) che abbiano accesso ad un browser e che siano configurati sul profilo Tailscale appositamente creato o, in alternativa, che siano collegati alla stessa LAN.
 **Nota**: L'alternativa a quest'app sarebbe quella di condividere l'intero account eWeLink con altre persone; con questa soluzione, invece, si ottiene un'interfaccia dedicata e sicura senza condividere le credenziali principali. Inoltre, l'accesso dall'esterno non è vincolato esclusivamente a Tailscale: si potrebbe anche optare per aprire volutamente una porta del server verso l'esterno (tramite port forwarding), rendendo l'utilizzo immediato (chiunque conosca l'URL pubblico può aprire il cancello). Per impostazione predefinita, tuttavia, è consigliato un approccio sicuro via VPN.
 
-## Architettura e Funzionalità Principali
+
+## Tecnologie e Strumenti Utilizzati
+- **Backend & Web Server**: Node.js, Express.js (gestione del server HTTP e hosting del file statico)
+- **Formato Dati & Persistenza**: unico file JSON `config.json`, per la gestione locale di credenziali e token
+- **Frontend**: Un unico file `index.html` con stili CSS incorporati e script JavaScript nativo per la gestione del click e l'interazione asincrona
+
+
+## Funzionalità Principali
 
 - **Interfaccia Web Minimal**: Frontend statico server-side privo di dipendenze pesanti, ottimizzato per l'azionamento rapido da dispositivi mobili.
 
