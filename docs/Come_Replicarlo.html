@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenGate - README</title>
+
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #24292f;
+            --heading: #1f2328;
+            --border: #d1d9e0;
+            --link: #0969da;
+            --code-bg: #f6f8fa;
+            --note-bg: #fff8c5;
+            --note-border: #d4a72c;
+            --accent: #0969da;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: #f6f8fa;
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.65;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            color: var(--heading);
+            line-height: 1.25;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            margin-top: 0;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h2 {
+            font-size: 1.5em;
+            margin-top: 36px;
+            padding-bottom: 0.3em;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h3 {
+            font-size: 1.2em;
+            margin-top: 28px;
+        }
+
+        p {
+            margin: 0 0 16px;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        a {
+            color: var(--link);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        ul, ol {
+            padding-left: 2em;
+            margin: 0 0 16px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        code {
+            padding: 0.2em 0.4em;
+            background: var(--code-bg);
+            border-radius: 6px;
+            font-family: "SFMono-Regular", Consolas,
+                "Liberation Mono", monospace;
+            font-size: 85%;
+        }
+
+        pre {
+            padding: 16px;
+            overflow-x: auto;
+            background: var(--code-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            line-height: 1.45;
+        }
+
+        pre code {
+            padding: 0;
+            background: transparent;
+            font-size: 90%;
+        }
+
+        .subtitle {
+            color: #59636e;
+            font-size: 1.15em;
+            margin-top: -12px;
+            margin-bottom: 24px;
+        }
+
+        .note {
+            margin: 20px 0;
+            padding: 14px 18px;
+            background: var(--note-bg);
+            border-left: 4px solid var(--note-border);
+            border-radius: 4px;
+        }
+
+        .note p:last-child {
+            margin-bottom: 0;
+        }
+
+        .section {
+            margin-top: 30px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 9px;
+            margin-right: 5px;
+            border-radius: 20px;
+            background: #ddf4ff;
+            color: #0969da;
+            font-size: 12px;
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid var(--border);
+            margin: 30px 0;
+        }
+
+        .attachments {
+            width: 100%;
+            height: auto;
+            display: flex;
+            gap: 10px;
+        }
+
+        .attachments img {
+            width: 33%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 10px;
+                font-size: 15px;
+            }
+
+            .container {
+                padding: 20px 16px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.35em;
+            }
+
+            pre {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>OpenGate</h1>
+
+    <p class="subtitle">
+        <strong>App per il controllo smart condiviso di un cancello elettrico condominiale</strong>
+    </p>
+
+    <p>
+        Applicazione web leggera e autonoma sviluppata in Node.js ed Express
+        per il controllo remoto di un attuatore relè eWeLink a 1-4 canali
+        (<code>CK-BL602-4SW-HS</code>, UIID 138) collegato all'apertura
+        di un cancello elettrico; il dispositivo è stato collegato
+        direttamente al pulsante di apertura del cancello, situato
+        all'interno del citofono di casa (vedi allegato 2).
+    </p>
+
+    <div class="note">
+        <strong>Nota</strong>:
+        L'alternativa a quest'app sarebbe quella di condividere l'intero
+        account eWeLink con altre persone; con questa soluzione, invece,
+        si ottiene un'interfaccia dedicata e sicura senza condividere
+        le credenziali principali.
+    </div>
+
+    <h2>Come Replicarlo (Guida Rapida)</h2>
+
+    <p>
+        Se desideri replicare questo progetto per automatizzare il tuo
+        cancello o un altro dispositivo eWeLink, ecco i passaggi fondamentali:
+    </p>
+
+    <h3>0. Requisito</h3>
+
+    <p>
+        Avere la disponibilità di un citofono di casa o di un qualsiasi
+        pulsante fisico che azioni l'apertura del cancello elettricamente.
+    </p>
+
+    <h3>1. Hardware Necessario</h3>
+
+    <ul>
+        <li>
+            Un attuatore relè smart eWeLink a 1 o più canali compatibile
+            con API v2 (il mio modello:
+            <strong><code>CK-BL602-4SW-HS</code></strong>,
+            acquistato su Amazon, vedi allegato 3).
+        </li>
+
+        <li>
+            Un alimentatore adatto per il relè (va bene un vecchio
+            caricabatterie per smartphone da 5v) e un paio di fili elettrici
+            collegati in parallelo al pulsante fisico di apertura del
+            citofono di casa, in modo che il contatto pulito del relè
+            simuli la pressione del tasto (per cablaggio vedi allegato 2).
+        </li>
+    </ul>
+
+    <h3>2. Configurazione del dispositivo</h3>
+
+    <p>
+        Scaricare l'app eWeLink, seguire la procedura di configurazione
+        per connetterlo al Wi-Fi domestico e verificare che, dall'app
+        ufficiale, il dispositivo risponda perfettamente ai comandi.
+    </p>
+
+    <h3>3. Recupero dei Token Iniziali (AT e RT)</h3>
+
+    <p>
+        Poiché l'endpoint di login ufficiale richiede cifratura avanzata,
+        il modo più semplice per ottenere la prima coppia di token è:
+    </p>
+
+    <ol>
+        <li>
+            Accedi da browser al sito "eWeLink Web" tramite URL:
+            <a href="https://web.ewelink.cc" target="_blank" rel="noopener noreferrer">
+                https://web.ewelink.cc
+            </a>
+        </li>
+
+        <li>
+            Apri gli strumenti per sviluppatori (cliccare sul tasto
+            <code>F12</code> della tastiera e selezionare il tab
+            <strong>Network</strong>, filtrando per la categoria
+            "Fetch/XHR").
+        </li>
+
+        <li>
+            Effettua il login, individua la chiamata "login" dentro
+            la colonna "Name", cliccaci sopra e seleziona il tab
+            "Response": al suo interno troverai l'<code>at</code>
+            (Access Token) e l'<code>rt</code> (Refresh Token),
+            salvali da qualche parte.
+        </li>
+
+        <li>
+            Successivamente, lasciando lo strumento per sviluppatori aperto,
+            clicca sul dispositivo di interesse (si aprirà una specie
+            di interruttore con in alto a destra una rotellina per
+            le impostazioni, cliccala e verifica nuovamente la colonna
+            "Name", dovrebbe uscire una chiamata "thing", cliccaci sopra
+            e seleziona il tab "Response": all'interno, nelle prime righe,
+            dovresti trovare "deviceid: 100xxxxxxx"; salva anche questo dato.
+        </li>
+    </ol>
+
+    <h3>4. Configurazione del Progetto</h3>
+
+    <ol>
+        <li>
+            Clona la repository e installa le dipendenze
+            (assicurati di avere <strong>Node.js</strong> installato):
+            
+            <pre><code>npm install express node-fetch</code></pre>
+        </li>
+
+        <li>
+            Modifica il file <code>config.json</code> inserendo
+            <code>at</code>, <code>rt</code> e <code>deviceid</code>
+            recuperati nel punto 3.3 e 3.4.
+        </li>
+
+        <li>
+            Lancia il server con il comando:
+
+            <pre><code>node index.js</code></pre>
+        </li>
+
+        <li>
+            Vai sul browser del pc dove gira il server all'indirizzo
+            <a href="http://localhost:3000" target="_blank" rel="noopener noreferrer">
+                http://localhost:3000
+            </a>
+            e vedrai un pulsante che, una volta cliccato aprirà il cancello.
+        </li>
+    </ol>
+
+    <div class="note">
+        <strong>Nota</strong>:
+        Per l'accesso da altri dispositivi su rete LAN è sufficiente
+        puntare non più all'indirizzo <code>http://localhost:3000</code>
+        ma a <code>http://hostName:3000</code> (dove hostName deve essere
+        recuperato dal pannello admin del proprio router).
+
+        <p>
+            Per l'accesso dall'esterno, invece, è necessario scaricare Tailscale
+            sia sul pc dove gira il server che su tutti gli altri
+            dispositivi che si intende utilizzare e registrare questi
+            dispositivi sotto un unico profilo (così da creare una
+            sottorete privata senza esporre il server dall'esterno).
+        </p>
+    </div>
+
+    <hr>
+
+    <p style="text-align:center; color:#656d76; font-size:13px;">
+        <strong>OpenGate</strong> · Documentazione del progetto
+    </p>
+
+    <h3>Allegati</h3>
+    <div class="attachments">
+
+        <img src="https://github.com/morix92/OpenGate/blob/main/docs/allegati/1%20-%20Citofono.jpg?raw=true" alt="citofono">
+        <img src="https://github.com/morix92/OpenGate/blob/main/docs/allegati/2%20-%20Cablaggio2.jpg?raw=true" alt="cablaggio">
+        <img src="https://github.com/morix92/OpenGate/blob/main/docs/allegati/3%20-%20Dispositivo.jpg?raw=true" alt="cablaggio">
+    
+    </div>
+
+</div>
+
+
+
+</body>
+</html>
